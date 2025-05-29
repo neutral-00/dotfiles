@@ -104,6 +104,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Plugin with custom directory and name
 Plug 'junegunn/vim-easy-align', { 'dir': '~/plugins/vim-easy-align', 'as': 'vim-easy-align' }
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 
