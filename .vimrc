@@ -15,14 +15,20 @@ set expandtab
 " use jj to switch to normal mode 
 inoremap <silent> jj <Esc>:update<CR>
 inoremap <silent> jk <Esc>:update<CR>
-nnoremap <silent> jk <Esc>:update<CR>
+nnoremap <silent> jk <Esc>:w<CR>
 " use ctrl-s to q!
 inoremap <C-S> <Esc>:update<CR>g
-nnoremap <silent> <C-S> :update<CR>
+nnoremap <silent> <C-S> :w<CR>
 " [n]ew [t]ab
 nnoremap <leader>tn :tabnew<CR>
 " close/[x] [t]ab
-nnoremap <leader>tx :q!<CR>	
+nnoremap <leader>tx :wq<CR>
+" quit all tabs - meaning close vim
+nnoremap <leader>tq :wqa<CR>
+" Move to [n]ext tab
+nnoremap <leader>tn :tabn<CR>
+" Move to [p]revious tab
+nnoremap <leader>tp :tabp<CR>
 " Title Case the current Line
 nnoremap <leader>tc :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g<CR>:nohlsearch<CR>
 " set wildmenu for tab completions in command mode
@@ -53,6 +59,11 @@ let g:netrw_localcopycmd = "cp"
 let g:netrw_localmovecmd = "mv"
 set splitbelow " force horizontal splits below current window
 set splitright " force horizontal splits right current window
+" Split Movements - Jump with Ctrl+h/j/k/l
+nnoremap <C-h> <c-w>h
+nnoremap <C-j> <c-w>j
+nnoremap <C-k> <c-w>k
+nnoremap <C-l> <c-w>l
 set nowritebackup		" don't create backup file and 
 set noswapfile
 " Search behavior
@@ -85,8 +96,6 @@ nnoremap <leader>yf :let @+ = expand('%:p')<CR>
 vnoremap <leader>j :m '>+1<CR>gv=gv
 vnoremap <leader>k :m '<-2<CR>gv=gv
 
-" quit
-nnoremap <leader>q :q<CR>
 
 
 
@@ -112,18 +121,13 @@ call plug#end()
 "  C-n
 "
 "  -- vim-easy-motion keymappings
-"  generally follow <leader><leader> and a vim motion
-" search with a letter forward : <leader><leader>f
-" search with a letter backward : <leader><leader>F
-" search with a letter both side : <leader><leader>s
-" search with a letter until forward : <leader><leader>t
-map <leader><leader>2f <Plug>(easymotion-overwin-f2)
+map <leader><leader>f <Plug>(easymotion-overwin-f2)
 " search up and down with 2 chars
-map <leader><leader>2s <Plug>(easymotion-s2)
-" search up with 2 chars
-map <leader><leader>2F <Plug>(easymotion-F2)
-" search on same line with 2 chars
-map <leader><leader>2ls <Plug>(easymotion-sl2)
+map <leader><leader>s <Plug>(easymotion-s2)
+" search up with 2 cars
+map <leader><leader>F <Plug>(easymotion-F2)
+" search on same lin with 2 chars
+map <leader><leader>l <Plug>(easymotion-sl2)
 " -- end of vim-easy-motion-----------------------------------
 
 " -- Colorscheme --
@@ -155,6 +159,5 @@ nnoremap <leader>ef :NERDTreeFind<CR>
 " -- fzf --
 " fuzzy find files in cwd
 nnoremap <leader>ff :Files<CR>
-
 
 
