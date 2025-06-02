@@ -21,11 +21,13 @@ return {
         lua = { "stylua" },
         python = { "isort", "black" },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 1000,
-      },
+      format_on_save = function(bufnr)
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        if filename:match("keymaps.lua$") or filename:match("harpoon.lua$") then
+          return nil
+        end
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
     })
 
     vim.keymap.set({ "n", "v" }, "<leader>mp", function()

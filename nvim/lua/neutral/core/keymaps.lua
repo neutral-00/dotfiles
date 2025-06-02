@@ -32,15 +32,51 @@ keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- o
 keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
 keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
-keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })
+
+-- Harpoon
+-- keymap.set("n", "<leader>ha", require("harpoon.mark").add_file, { desc = "[a]dd file to harpoon" })
+-- keymap.set("n", "<leader>hh", require("harpoon.ui").toggle_quick_menu, { desc = "toggle harpoon ui" })
+
+--Comment Custom keybindings
+keymap.set("n", "gc", function() require("Comment.api").toggle.linewise.current() end, { desc = "Toggle line comment" })
+keymap.set("v", "gc", function() require("Comment.api").toggle.linewise.visual() end, { desc = "Toggle line comment in visual mode" })
+keymap.set("n", "gC", function() require("Comment.api").toggle.blockwise.current() end, { desc = "Toggle block comment" })
+keymap.set("v", "gC", function() require("Comment.api").toggle.blockwise.visual() end, { desc = "Toggle block comment in visual mode" })
+
+-- LSP
+opts.desc = "Go to references"
+keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+opts.desc = "Smart rename"
+keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.rename", opts)
+opts.desc = "Go to declaration"
+keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration", opts)
+opts.desc = "Show LSP definitions"
+keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+opts.desc = "Show LSP implementations"
+keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+opts.desc = "Show LSP type definitions"
+keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+opts.desc = "See available code actions"
+keymap.set({ "n", "v" }, "<leader>ga", "<cmd>lua vim.lsp.buf.code_action", opts)
+opts.desc = "Format Buffer"
+keymap.set({ "n", "v" }, "<leader>gf", "<cmd>lua vim.lsp.buf.format({ async = true })", opts)
+opts.desc = "Show buffer diagnostics"
+keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+opts.desc = "Show line diagnostics"
+keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+opts.desc = "Go to previous diagnostic"
+keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+opts.desc = "Go to next diagnostic"
+keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+opts.desc = "Show documentation for what is under cursor"
+keymap.set("n", "K", vim.lsp.buf.hover, opts)
+opts.desc = "Restart LSP"
+keymap.set("n", "<leader>lr", ":LspRestart<CR>", opts)
+keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>")
 
 -- Miscellaneous
-keymap.set(
-	"n",
-	"<leader>tc",
-	"<cmd>s/\\<\\(\\w\\)\\(\\w*\\)\\>/\\u\\1\\L\\2/g<CR>:nohlsearch<CR>",
-	{ desc = "Title case current line" }
-)
+keymap.set("n", "<leader>tC","<cmd>s/\\<\\(\\w\\)\\(\\w*\\)\\>/\\u\\1\\L\\2/g<CR>:nohlsearch<CR>",{ desc = "Title case current line" })
 -- File path copy
 -- Copy just the filename
 keymap.set("n", "<leader>yy", [[:let @+ = expand('%:t')<CR>]], opts)

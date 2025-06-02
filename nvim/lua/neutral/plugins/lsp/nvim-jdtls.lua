@@ -3,4 +3,5 @@ return {
 	dependencies = {
 		"mfussenegger/nvim-dap",
 	},
+	ft = "java",
 }
